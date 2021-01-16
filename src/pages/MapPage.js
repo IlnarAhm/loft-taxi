@@ -2,23 +2,35 @@ import React from 'react';
 import headerLogo from '../headerlogo.svg';
 import AppBar from '@material-ui/core/AppBar';
 import MapForm from '../components/MapForm';
+import ProfileForm from '../components/ProfileForm';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import mapboxgl from 'mapbox-gl';
-import Grid from "@material-ui/core/Grid";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWxuYXJhaG0iLCJhIjoiY2tqeGE0NHJoMHFtcDJ2cXUwMmtnMmM0OCJ9.db5wXYdphFV7OKw7PcIbIA';
 
-class Map extends React.Component {
+class MapPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             lat: 55.786898878676745,
             lng: 49.12308277592637,
-            zoom: 12
+            zoom: 12,
+            form: 'profile',
         };
+
+        this.openMapForm = this.openMapForm.bind(this);
+        this.openProfile = this.openProfile.bind(this);
+    }
+
+    openMapForm() {
+        this.setState({ form: 'map' });
+    }
+
+    openProfile() {
+        this.setState({ form: 'profile' });
     }
 
     componentDidMount() {
@@ -30,7 +42,13 @@ class Map extends React.Component {
         });
     }
 
+
     render() {
+        let form;
+        this.state.form === 'map' ?
+            form = <MapForm /> :
+            form = <ProfileForm openMapForm={this.openMapForm} />;
+
         return (
             <React.Fragment>
                 <AppBar position="static" elevation={0} className="appBar">
@@ -39,35 +57,37 @@ class Map extends React.Component {
                             <img src={headerLogo} alt="" className="toolbarTitleLogo"/>
                         </Typography>
                         <nav>
-                            <a href="#" className="headerLink activePage">
+                            <a
+                                href="#"
+                                onClick={ this.openMapForm }
+                                className={ this.state.form === 'map' ? "headerLink activePage" : "headerLink" }
+                            >
                                 Карта
                             </a>
-                            <a href="#" className="headerLink">
+                            <a
+                                href="#"
+                                onClick={ this.openProfile }
+                                className={ this.state.form === 'profile' ? "headerLink activePage" : "headerLink" }
+                            >
                                 Профиль
                             </a>
-                            <a href="#" className="headerLink">
+                            <a
+                                href="#"
+                                onClick={ this.props.handleLogPage }
+                                className="headerLink"
+                            >
                                 Выйти
                             </a>
                         </nav>
                     </Toolbar>
                 </AppBar>
-                {/* Hero unit */}
-                <Container maxWidth="sm" component="main" className="">
-                    {/*{Map form}*/}
-                    <Grid item xs={12} sm={8} md={8} className="mapForm" >
-                        <div className="paper mapPaper">
-                            <MapForm />
-                            <div className="paper mapPaper">
-                                <MapForm />
-                            </div>
-                        </div>
-                    </Grid>
-                    {/*{Map}*/}
-                    <div ref={el => this.mapContainer = el} className="mapContainer" />
+                <Container maxWidth="lg" component="main" className="">
+                    { form }
+                    <div ref={el => this.mapContainer = el} className={ this.state.form === 'profile' ? "mapContainer profileFormContainer" : "mapContainer"} />
                 </Container>
             </React.Fragment>
         );
     }
 }
 
-export default Map;
+export default MapPage;
