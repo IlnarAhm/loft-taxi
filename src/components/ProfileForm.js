@@ -8,16 +8,10 @@ import TextField from "@material-ui/core/TextField/TextField";
 
 class ProfileForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            cardNumber: '',
-            date: '',
-            inputsFilled: false,
-            subtitle: 'Введите платежные данные',
-            btnText: 'Сохранить',
-        };
-    }
+    state = {
+        cardNumber: '',
+        date: '',
+    };
 
     cardNumberChange = (event) => {
         this.setState({ cardNumber: event.target.value });
@@ -27,28 +21,20 @@ class ProfileForm extends React.Component {
         this.setState({ date: event.target.value });
     };
 
-    inputFill = () => {
-        this.setState({
-            inputsFilled: true,
-            subtitle: 'Платёжные данные обновлены. Теперь вы можете заказывать такси.',
-            btnText: 'Перейти на карту',
-        });
-    };
-
     render() {
         return (
-            <Grid item xs={12} sm={12} md={12} className="profileForm" >
+            <Grid item xs={12} className="profileForm" >
                 <div className="paper profilePaper">
-                    <div className="mapInput">
+                    <form className="mapInput" onSubmit={ () => this.props.checkFormComplete(true) } >
                         <div className="formTitle" >
                             Профиль
                         </div>
                         <div className="formSubTitle">
-                            { this.state.subtitle }
+                            Введите платежные данные
                         </div>
-                        <div className={this.state.inputsFilled ? 'd-none' : ''}>
+                        <div>
                             <Grid container spacing={6}>
-                                <Grid item xs={12} sm={12} md={6} className="">
+                                <Grid item xs={12} md={6} className="">
                                     <form className="form" noValidate >
                                         <TextField
                                             variant="standard"
@@ -57,7 +43,6 @@ class ProfileForm extends React.Component {
                                             id="name"
                                             label="Имя владельца"
                                             name="name"
-                                            autoComplete=""
                                         />
                                         <TextField
                                             variant="standard"
@@ -68,10 +53,9 @@ class ProfileForm extends React.Component {
                                             id="cardNumber"
                                             value={this.state.cardNumberChange}
                                             onChange={this.cardNumberChange}
-                                            autoComplete="name"
                                         />
                                         <Grid container spacing={3}>
-                                            <Grid item xs={12} sm={12} md={6}>
+                                            <Grid item xs={12} md={6}>
                                                 <TextField
                                                     variant="standard"
                                                     margin="normal"
@@ -84,7 +68,7 @@ class ProfileForm extends React.Component {
                                                     onChange={this.dateChange}
                                                 />
                                             </Grid>
-                                            <Grid item xs={12} sm={12} md={6}>
+                                            <Grid item xs={12} md={6}>
                                                 <TextField
                                                     variant="standard"
                                                     margin="normal"
@@ -98,7 +82,7 @@ class ProfileForm extends React.Component {
                                         </Grid>
                                     </form>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} className="">
+                                <Grid item xs={12} md={6} className="">
                                     <div className="profileCard">
                                         <div className="profileCard_head">
                                             <img src={cardLogo} alt=""/>
@@ -115,10 +99,10 @@ class ProfileForm extends React.Component {
                                 </Grid>
                             </Grid>
                         </div>
-                        <button type="submit" className="submit" onClick={this.state.inputsFilled === false ? this.inputFill : this.props.openMapForm}>
-                            { this.state.btnText }
+                        <button type="submit" className="submit">
+                            Сохранить
                         </button>
-                    </div>
+                    </form>
                 </div>
             </Grid>
         );

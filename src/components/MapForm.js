@@ -8,14 +8,15 @@ import Grid from "@material-ui/core/Grid";
 
 class LoginForm extends React.Component {
 
+    state = {
+        point : '',
+        setPoint: '',
+        open: false,
+        setOpen: false,
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            point : '',
-            setPoint: '',
-            open: false,
-            setOpen: false,
-        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -37,7 +38,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <Grid item xs={12} sm={8} md={8} className="mapForm" >
-                <div className="paper mapPaper">
+                <form className="paper mapPaper">
                     <div className="mapInput">
                         <FormControl className="formControl">
                             <InputLabel id="from-open-select-label">Откуда</InputLabel>
@@ -79,7 +80,7 @@ class LoginForm extends React.Component {
                             Заказать
                         </button>
                     </div>
-                </div>
+                </form>
             </Grid>
         );
     }

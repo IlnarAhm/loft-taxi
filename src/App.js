@@ -1,40 +1,36 @@
 import React from 'react';
 import MapPage from './pages/MapPage';
-import LogPage from './pages/LogPage';
-// import LogPage from './pages/LogPage';
-
-const PAGES = {
-    asd: 'asd',
-};
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ProfilePage from './pages/ProfilePage';
+import Header from './components/Header';
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentPage: 'LogPage',
-        };
-        this.handleMapPage = this.handleMapPage.bind(this);
-        this.handleLogPage = this.handleLogPage.bind(this);
-    }
+    state = {
+        currentPage: 'LoginPage',
+    };
 
-    handleMapPage() {
-        this.setState({ currentPage: 'MapPage' });
-    }
+    pages = {
+        LoginPage : <LoginPage changePage={ (page) => this.changePage(page) } />,
+        RegisterPage: <RegisterPage changePage={ (page) => this.changePage(page) } />,
+        MapPage: <MapPage changePage={ (page) => this.changePage(page) } />,
+        ProfilePage: <ProfilePage changePage={ (page) => this.changePage(page) } />,
+    };
 
-    handleLogPage() {
-        this.setState({ currentPage: 'LogPage' });
-    }
+    changePage = (page) => {
+        this.setState( { currentPage: page } );
+    };
+
 
     render() {
-        let page;
-        this.state.currentPage === "LogPage" ?
-            page = <LogPage handleMapPage={this.handleMapPage} /> :
-            page = <MapPage handleLogPage={this.handleLogPage} />;
-
+        // console.log(this.state.currentPage);
         return (
             <div>
-                { page }
+                { this.state.currentPage === 'MapPage' || this.state.currentPage === 'ProfilePage' ?
+                    <Header changePage={(page) => this.changePage(page)} currentPage={this.state.currentPage} /> : ''
+                }
+                { this.pages[this.state.currentPage] }
             </div>
         );
     }

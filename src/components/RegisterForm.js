@@ -3,7 +3,12 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 
-class SignupForm extends React.Component {
+class RegisterForm extends React.Component {
+
+    changePage = (page) => {
+        this.props.changePage(page);
+    };
+
     render() {
         return (
             <Grid item xs={12} sm={8} md={8} className="loginForm" >
@@ -11,7 +16,7 @@ class SignupForm extends React.Component {
                     <div className="formTitle" >
                         Регистрация
                     </div>
-                    <form className="form" noValidate >
+                    <form className="form" noValidate onSubmit={ () => this.changePage('ProfilePage') } >
                         <TextField
                             variant="standard"
                             margin="normal"
@@ -28,10 +33,10 @@ class SignupForm extends React.Component {
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
+                            name="name"
                             label="Как вас зовут?"
-                            type="password"
-                            id="password"
+                            type="text"
+                            id="name"
                             autoComplete="current-password"
                         />
                         <TextField
@@ -49,7 +54,7 @@ class SignupForm extends React.Component {
                             Зарегистрироваться
                         </button>
                         <div className="newAcc">
-                            Уже зарегестрированы? <a href="/#" className="orangeBtn" onClick={this.props.handleLoginClick} >Войти</a>
+                            Уже зарегестрированы? <a href="#" className="orangeBtn" onClick={ () => this.changePage('LoginPage') } >Войти</a>
                         </div>
                     </form>
                 </div>
@@ -58,4 +63,4 @@ class SignupForm extends React.Component {
     }
 }
 
-export default SignupForm;
+export default RegisterForm;

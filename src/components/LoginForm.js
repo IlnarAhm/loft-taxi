@@ -4,6 +4,11 @@ import Grid from '@material-ui/core/Grid';
 
 
 class LoginForm extends React.Component {
+
+    changePage = (page) => {
+        this.props.changePage(page);
+    };
+
     render() {
         return (
             <Grid item xs={12} sm={8} md={8} className="loginForm" >
@@ -11,7 +16,7 @@ class LoginForm extends React.Component {
                     <div className="formTitle" >
                         Войти
                     </div>
-                    <form className="form" noValidate onSubmit={this.props.handleMapPage}>
+                    <form className="form" noValidate onSubmit={ () => this.changePage('ProfilePage') }>
                         <TextField
                             variant="standard"
                             margin="normal"
@@ -33,14 +38,14 @@ class LoginForm extends React.Component {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <a className="forgotLink" href="#">
-                            Забыли пароль?
-                        </a>
+                        {/*<a className="forgotLink" href="#">*/}
+                        {/*    Забыли пароль?*/}
+                        {/*</a>*/}
                         <button type="submit" className="submit">
                             Войти
                         </button>
                         <div className="newAcc">
-                            Новый пользователь? <a href="/#" className="orangeBtn" onClick={this.props.handleSignupClick} >Регистрация</a>
+                            Новый пользователь? <a href="/#" className="orangeBtn" onClick={ () => this.changePage('RegisterPage') } >Регистрация</a>
                         </div>
                     </form>
                 </div>
