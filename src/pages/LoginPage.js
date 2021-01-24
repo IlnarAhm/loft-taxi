@@ -1,10 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import logo from '../loftlogo.png';
-import LoginForm from '../components/LoginForm';
+import logo from '../assets/images/loftlogo.png';
+import LoginForm from '../components/LoginForm/LoginForm';
+import PropTypes from 'prop-types';
+import { withAuth } from '../context/AuthContext';
 
 
 class LoginPage extends React.Component {
+
+    static propTypes = {
+        changePage: PropTypes.func,
+    };
 
     changePage = (page) => {
         this.props.changePage(page)
@@ -22,4 +28,4 @@ class LoginPage extends React.Component {
     };
 }
 
-export default LoginPage;
+export default withAuth(LoginPage);

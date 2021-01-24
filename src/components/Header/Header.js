@@ -2,18 +2,31 @@ import React from 'react';
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import headerLogo from "../headerlogo.svg";
+import headerLogo from "../../assets/images/headerlogo.svg";
+import PropTypes from 'prop-types';
+import {withAuth} from "../../context/AuthContext";
 
 
 class Header extends React.Component {
+
+    static propTypes = {
+        currentPage: PropTypes.string,
+        changePage: PropTypes.func,
+    };
 
     changePage = (page) => {
         this.props.changePage(page);
     };
 
+    unAuthenticate = (event) => {
+        event.preventDefault();
+        this.props.logout();
+        this.changePage('LoginPage');
+    };
+
     render() {
         return (
-            <AppBar position="static" elevation={0} className="appBar">
+            <AppBar position="static" elevation={0} className="appBar" data-testid="Header">
                 <Toolbar className="toolbar">
                     <Typography variant="h6" color="inherit" noWrap className="toolbarTitle">
                         <img src={headerLogo} alt="" className="toolbarTitleLogo"/>
@@ -35,7 +48,7 @@ class Header extends React.Component {
                         </a>
                         <a
                             href="#"
-                            onClick={ () => this.changePage('LoginPage') }
+                            onClick={ this.unAuthenticate }
                             className="headerLink"
                         >
                             Выйти
@@ -47,4 +60,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default withAuth(Header);

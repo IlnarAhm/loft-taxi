@@ -1,6 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import PropTypes from "prop-types";
+import {withAuth} from "../../context/AuthContext";
 
 
 class LoginForm extends React.Component {
@@ -9,14 +11,26 @@ class LoginForm extends React.Component {
         this.props.changePage(page);
     };
 
+    static propTypes = {
+        changePage: PropTypes.func,
+    };
+
+    authenticate = (event) => {
+        event.preventDefault();
+        const { email, password } = event.target;
+        if (this.props.login(email.value, password.value)) {
+            this.changePage('ProfilePage');
+        }
+    };
+
     render() {
         return (
-            <Grid item xs={12} sm={8} md={8} className="loginForm" >
+            <Grid item xs={12} sm={8} md={8} className="loginForm" data-testid="LoginForm">
                 <div className="paper">
                     <div className="formTitle" >
                         Войти
                     </div>
-                    <form className="form" noValidate onSubmit={ () => this.changePage('ProfilePage') }>
+                    <form className="form" noValidate autoComplete="off" onSubmit={ this.authenticate }>
                         <TextField
                             variant="standard"
                             margin="normal"
@@ -54,4 +68,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default withAuth(LoginForm);

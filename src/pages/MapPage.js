@@ -1,9 +1,14 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import Map from '../components/Map';
-import MapForm from "../components/MapForm";
+import Map from '../components/Map/Map';
+import MapForm from "../components/MapForm/MapForm";
+import PropTypes from "prop-types";
 
 class MapPage extends React.Component {
+
+    static propTypes = {
+        changePage: PropTypes.func,
+    };
 
     changePage = (page) => {
         this.props.changePage(page)
@@ -11,12 +16,10 @@ class MapPage extends React.Component {
 
     render() {
         return (
-            <>
-                <Container maxWidth="lg" component="main" className="">
-                    <MapForm changePage={ (page) => this.changePage(page) } />
-                    <Map currentPage="MapPage"/>
-                </Container>
-            </>
+            <Container maxWidth="lg" component="main" className="">
+                <MapForm changePage={ (page) => this.changePage(page) } />
+                <Map currentPage="MapPage"/>
+            </Container>
         );
     }
 }

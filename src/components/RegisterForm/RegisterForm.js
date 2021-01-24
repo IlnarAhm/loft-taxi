@@ -1,9 +1,14 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import PropTypes from "prop-types";
 
 
 class RegisterForm extends React.Component {
+
+    static propTypes = {
+        changePage: PropTypes.func,
+    };
 
     changePage = (page) => {
         this.props.changePage(page);
@@ -11,7 +16,7 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <Grid item xs={12} sm={8} md={8} className="loginForm" >
+            <Grid item xs={12} sm={8} md={8} className="loginForm" data-testid="RegisterForm">
                 <div className="paper">
                     <div className="formTitle" >
                         Регистрация

@@ -1,8 +1,13 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 
 
 class ProfileFormComplete extends React.Component {
+
+    static propTypes = {
+        changePage: PropTypes.func,
+    };
 
     changePage = (page) => {
         this.props.changePage(page)

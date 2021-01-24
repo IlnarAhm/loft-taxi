@@ -1,13 +1,18 @@
 import React from 'react';
-import ProfileForm from '../components/ProfileForm';
-import ProfileFormComplete from '../components/ProfileFormComplete';
+import ProfileForm from '../components/ProfileForm/ProfileForm';
+import ProfileFormComplete from '../components/ProfileForm/ProfileFormComplete';
 import Container from '@material-ui/core/Container';
-import Map from '../components/Map';
+import Map from '../components/Map/Map';
+import PropTypes from "prop-types";
 
 class ProfilePage extends React.Component {
 
     state = {
         isFormComplete: false,
+    };
+
+    static propTypes = {
+        changePage: PropTypes.func,
     };
 
     changePage = (page) => {
@@ -20,15 +25,13 @@ class ProfilePage extends React.Component {
 
     render() {
         return (
-            <>
-                <Container maxWidth="lg" component="main" className="">
-                    { !this.state.isFormComplete ?
-                        <ProfileForm checkFormComplete={ (bool) => this.checkFormComplete(bool) }/> :
-                        <ProfileFormComplete changePage={ (page) => this.changePage(page) } />
-                    }
-                    <Map currentPage="ProfilePage"/>
-                </Container>
-            </>
+            <Container maxWidth="lg" component="main">
+                { !this.state.isFormComplete ?
+                    <ProfileForm checkFormComplete={ (bool) => this.checkFormComplete(bool) }/> :
+                    <ProfileFormComplete changePage={ (page) => this.changePage(page) } />
+                }
+                <Map currentPage="ProfilePage"/>
+            </Container>
         );
     }
 }

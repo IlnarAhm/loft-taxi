@@ -1,9 +1,10 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import cardLogo from '../loft-card-logo.svg';
-import cardImg1 from '../loft-card-img1.svg';
-import cardImg2 from '../loft-card-img2.svg';
+import cardLogo from '../../assets/images/loft-card-logo.svg';
+import cardImg1 from '../../assets/images/loft-card-img1.svg';
+import cardImg2 from '../../assets/images/loft-card-img2.svg';
 import TextField from "@material-ui/core/TextField/TextField";
+import PropTypes from "prop-types";
 
 
 class ProfileForm extends React.Component {
@@ -11,6 +12,10 @@ class ProfileForm extends React.Component {
     state = {
         cardNumber: '',
         date: '',
+    };
+
+    static propTypes = {
+        checkFormComplete: PropTypes.func,
     };
 
     cardNumberChange = (event) => {
@@ -23,9 +28,9 @@ class ProfileForm extends React.Component {
 
     render() {
         return (
-            <Grid item xs={12} className="profileForm" >
+            <Grid item xs={12} className="profileForm" data-testid="ProfileForm">
                 <div className="paper profilePaper">
-                    <form className="mapInput" onSubmit={ () => this.props.checkFormComplete(true) } >
+                    <div className="mapInput">
                         <div className="formTitle" >
                             Профиль
                         </div>
@@ -35,7 +40,7 @@ class ProfileForm extends React.Component {
                         <div>
                             <Grid container spacing={6}>
                                 <Grid item xs={12} md={6} className="">
-                                    <form className="form" noValidate >
+                                    <form className="form" onSubmit={ () => this.props.checkFormComplete(true) } noValidate autoComplete="off" >
                                         <TextField
                                             variant="standard"
                                             margin="normal"
@@ -102,7 +107,7 @@ class ProfileForm extends React.Component {
                         <button type="submit" className="submit">
                             Сохранить
                         </button>
-                    </form>
+                    </div>
                 </div>
             </Grid>
         );
