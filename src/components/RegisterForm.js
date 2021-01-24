@@ -1,19 +1,22 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
 
-class LoginForm extends React.Component {
+class RegisterForm extends React.Component {
+
+    changePage = (page) => {
+        this.props.changePage(page);
+    };
+
     render() {
         return (
             <Grid item xs={12} sm={8} md={8} className="loginForm" >
                 <div className="paper">
                     <div className="formTitle" >
-                        Войти
+                        Регистрация
                     </div>
-                    <form className="form" noValidate >
+                    <form className="form" noValidate onSubmit={ () => this.changePage('ProfilePage') } >
                         <TextField
                             variant="standard"
                             margin="normal"
@@ -30,20 +33,28 @@ class LoginForm extends React.Component {
                             margin="normal"
                             required
                             fullWidth
+                            name="name"
+                            label="Как вас зовут?"
+                            type="text"
+                            id="name"
+                            autoComplete="current-password"
+                        />
+                        <TextField
+                            variant="standard"
+                            margin="normal"
+                            required
+                            fullWidth
                             name="password"
-                            label="Пароль"
+                            label="Придумайте пароль"
                             type="password"
                             id="password"
                             autoComplete="current-password"
                         />
-                        <Link className="forgotLink" href="#">
-                            Забыли пароль?
-                        </Link>
                         <button type="submit" className="submit" >
-                            Войти
+                            Зарегистрироваться
                         </button>
-                        <div className="newAcc">s
-                            Новый пользователь? <a href="#" className="orangeBtn">Регистрация</a>
+                        <div className="newAcc">
+                            Уже зарегестрированы? <a href="#" className="orangeBtn" onClick={ () => this.changePage('LoginPage') } >Войти</a>
                         </div>
                     </form>
                 </div>
@@ -52,4 +63,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default RegisterForm;
