@@ -10,8 +10,9 @@ import {withAuth} from "../../context/AuthContext";
 class Header extends React.Component {
 
     static propTypes = {
-        currentPage: PropTypes.string,
-        changePage: PropTypes.func,
+        currentPage: PropTypes.string.isRequired,
+        changePage: PropTypes.func.isRequired,
+        logout: PropTypes.func.isRequired
     };
 
     changePage = (page) => {

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 class ProfileFormComplete extends React.Component {
 
     static propTypes = {
-        changePage: PropTypes.func,
+        changePage: PropTypes.func.isRequired,
     };
 
     changePage = (page) => {

@@ -12,7 +12,8 @@ class LoginForm extends React.Component {
     };
 
     static propTypes = {
-        changePage: PropTypes.func,
+        changePage: PropTypes.func.isRequired,
+        login: PropTypes.func.isRequired
     };
 
     authenticate = (event) => {

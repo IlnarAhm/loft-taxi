@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 class MapPage extends React.Component {
 
     static propTypes = {
-        changePage: PropTypes.func,
+        changePage: PropTypes.func.isRequired,
     };
 
     changePage = (page) => {

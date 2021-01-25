@@ -26,7 +26,6 @@ class App extends React.Component {
 
     render() {
         const { currentPage } = this.state;
-        console.log(currentPage);
         return (
             <>
                 { currentPage === 'MapPage' || currentPage === 'ProfilePage'

@@ -12,7 +12,7 @@ class ProfilePage extends React.Component {
     };
 
     static propTypes = {
-        changePage: PropTypes.func,
+        changePage: PropTypes.func.isRequired,
     };
 
     changePage = (page) => {

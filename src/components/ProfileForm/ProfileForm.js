@@ -15,7 +15,7 @@ class ProfileForm extends React.Component {
     };
 
     static propTypes = {
-        checkFormComplete: PropTypes.func,
+        checkFormComplete: PropTypes.func.isRequired,
     };
 
     cardNumberChange = (event) => {
@@ -26,11 +26,15 @@ class ProfileForm extends React.Component {
         this.setState({ date: event.target.value });
     };
 
+    checkFormComplete = (bool) => {
+        this.props.checkFormComplete(bool)
+    };
+
     render() {
         return (
             <Grid item xs={12} className="profileForm" data-testid="ProfileForm">
                 <div className="paper profilePaper">
-                    <div className="mapInput">
+                    <form className="mapInput" onSubmit={ () => this.checkFormComplete(true) } noValidate autoComplete="off">
                         <div className="formTitle" >
                             Профиль
                         </div>
@@ -40,7 +44,7 @@ class ProfileForm extends React.Component {
                         <div>
                             <Grid container spacing={6}>
                                 <Grid item xs={12} md={6} className="">
-                                    <form className="form" onSubmit={ () => this.props.checkFormComplete(true) } noValidate autoComplete="off" >
+                                    <div className="form" >
                                         <TextField
                                             variant="standard"
                                             margin="normal"
@@ -85,7 +89,7 @@ class ProfileForm extends React.Component {
                                                 />
                                             </Grid>
                                         </Grid>
-                                    </form>
+                                    </div>
                                 </Grid>
                                 <Grid item xs={12} md={6} className="">
                                     <div className="profileCard">
@@ -107,7 +111,7 @@ class ProfileForm extends React.Component {
                         <button type="submit" className="submit">
                             Сохранить
                         </button>
-                    </div>
+                    </form>
                 </div>
             </Grid>
         );
