@@ -3,37 +3,39 @@ import MapPage from './pages/MapPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
-import Header from './components/Header';
+import Header from './components/Header/Header';
+import { withAuth } from './context/AuthContext';
 
 class App extends React.Component {
 
     state = {
-        currentPage: 'LoginPage',
+        currentPage: 'LoginPage'
     };
 
-    pages = {
-        LoginPage : <LoginPage changePage={ (page) => this.changePage(page) } />,
-        RegisterPage: <RegisterPage changePage={ (page) => this.changePage(page) } />,
-        MapPage: <MapPage changePage={ (page) => this.changePage(page) } />,
-        ProfilePage: <ProfilePage changePage={ (page) => this.changePage(page) } />,
+    PAGES = {
+        LoginPage : (props) => <LoginPage {...props} />,
+        RegisterPage: (props) => <RegisterPage {...props} />,
+        MapPage: (props) => <MapPage {...props} />,
+        ProfilePage: (props) => <ProfilePage {...props} />,
     };
 
     changePage = (page) => {
-        this.setState( { currentPage: page } );
+        this.setState({currentPage: page});
     };
 
 
     render() {
-        // console.log(this.state.currentPage);
+        const { currentPage } = this.state;
         return (
-            <div>
-                { this.state.currentPage === 'MapPage' || this.state.currentPage === 'ProfilePage' ?
-                    <Header changePage={(page) => this.changePage(page)} currentPage={this.state.currentPage} /> : ''
+            <>
+                { currentPage === 'MapPage' || currentPage === 'ProfilePage'
+                    ?
+                    <Header changePage={(page) => this.changePage(page)} currentPage={currentPage} /> : ''
                 }
-                { this.pages[this.state.currentPage] }
-            </div>
+                { this.PAGES[currentPage]({changePage: this.changePage}) }
+            </>
         );
     }
 }
 
-export default App;
+export default withAuth(App);

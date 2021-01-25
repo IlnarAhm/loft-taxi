@@ -1,7 +1,6 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
-
-mapboxgl.accessToken = 'pk.eyJ1IjoiaWxuYXJhaG0iLCJhIjoiY2tqeGE0NHJoMHFtcDJ2cXUwMmtnMmM0OCJ9.db5wXYdphFV7OKw7PcIbIA';
+import PropTypes from "prop-types";
 
 class MapPage extends React.Component {
     state = {
@@ -10,9 +9,17 @@ class MapPage extends React.Component {
         zoom: 12,
     };
 
+    static propTypes = {
+        currentPage: PropTypes.string,
+    };
+
+    mapContainer = React.createRef();
+
     componentDidMount() {
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaWxuYXJhaG0iLCJhIjoiY2tqeGE0NHJoMHFtcDJ2cXUwMmtnMmM0OCJ9.db5wXYdphFV7OKw7PcIbIA';
+
         const map = new mapboxgl.Map({
-            container: this.mapContainer,
+            container: this.mapContainer.current,
             style: 'mapbox://styles/mapbox/light-v10',
             center: [this.state.lng, this.state.lat],
             zoom: this.state.zoom
@@ -23,7 +30,7 @@ class MapPage extends React.Component {
     render() {
         return (
             <div
-                ref={el => this.mapContainer = el}
+                ref={this.mapContainer}
                 className={ this.props.currentPage === 'ProfilePage' ? "mapContainer profileFormContainer" : "mapContainer"}
             />
         );

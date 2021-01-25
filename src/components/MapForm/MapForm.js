@@ -4,15 +4,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 
 
-class LoginForm extends React.Component {
+class MapForm extends React.Component {
 
     state = {
         point : '',
         setPoint: '',
         open: false,
         setOpen: false,
+    };
+
+    static propTypes = {
+        changePage: PropTypes.func.isRequired,
     };
 
     constructor(props) {
@@ -37,8 +42,8 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <Grid item xs={12} sm={8} md={8} className="mapForm" >
-                <form className="paper mapPaper">
+            <Grid item xs={12} sm={8} md={8} className="mapForm" data-testid="MapForm">
+                <form className="paper mapPaper" noValidate autoComplete="off">
                     <div className="mapInput">
                         <FormControl className="formControl">
                             <InputLabel id="from-open-select-label">Откуда</InputLabel>
@@ -86,4 +91,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default MapForm;

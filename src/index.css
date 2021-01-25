@@ -31,7 +31,7 @@ a:hover {
 }
 
 .loginForm {
-  background-image: url('map.jpg');
+  background-image: url('assets/images/map.jpg');
   display: flex;
   align-items: center;
   justify-content: center;

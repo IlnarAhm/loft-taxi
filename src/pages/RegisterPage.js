@@ -1,13 +1,18 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import logo from '../loftlogo.png';
-import RegisterForm from '../components/RegisterForm';
+import logo from '../assets/images/loftlogo.png';
+import RegisterForm from '../components/RegisterForm/RegisterForm';
+import PropTypes from "prop-types";
 
 
 class RegisterPage extends React.Component {
 
     changePage = (page) => {
         this.props.changePage(page)
+    };
+
+    static propTypes = {
+        changePage: PropTypes.func.isRequired,
     };
 
     render() {
