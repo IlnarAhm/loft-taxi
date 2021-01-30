@@ -6,7 +6,6 @@ import cardImg2 from '../../assets/images/loft-card-img2.svg';
 import TextField from "@material-ui/core/TextField/TextField";
 import PropTypes from "prop-types";
 
-
 class ProfileForm extends React.Component {
 
     state = {

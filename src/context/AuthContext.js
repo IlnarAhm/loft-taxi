@@ -16,6 +16,7 @@ export const AuthProvider = ({children}) => {
 
   const logout = () => {
       setIsLoggedIn(false);
+      window.location.replace("/login");
   };
 
   return (

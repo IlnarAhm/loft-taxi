@@ -4,8 +4,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-
 
 class MapForm extends React.Component {
 
@@ -14,10 +12,6 @@ class MapForm extends React.Component {
         setPoint: '',
         open: false,
         setOpen: false,
-    };
-
-    static propTypes = {
-        changePage: PropTypes.func.isRequired,
     };
 
     constructor(props) {

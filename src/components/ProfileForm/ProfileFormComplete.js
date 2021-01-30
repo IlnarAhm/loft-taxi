@@ -1,16 +1,10 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-
 
 class ProfileFormComplete extends React.Component {
 
-    static propTypes = {
-        changePage: PropTypes.func.isRequired,
-    };
-
-    changePage = (page) => {
-        this.props.changePage(page)
+    changePage = () => {
+        window.location.replace("/map");
     };
 
     render() {
@@ -27,7 +21,7 @@ class ProfileFormComplete extends React.Component {
                         <button
                             type="submit"
                             className="submit"
-                            onClick={ () => this.changePage('MapPage') }
+                            onClick={ () => this.changePage() }
                         >
                             Перейти на карту
                         </button>

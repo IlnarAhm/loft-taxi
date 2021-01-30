@@ -4,38 +4,30 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import Header from './components/Header/Header';
-import { withAuth } from './context/AuthContext';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PrivateRoute } from "./components/PrivateRoute";
 
 class App extends React.Component {
 
-    state = {
-        currentPage: 'LoginPage'
-    };
-
-    PAGES = {
-        LoginPage : (props) => <LoginPage {...props} />,
-        RegisterPage: (props) => <RegisterPage {...props} />,
-        MapPage: (props) => <MapPage {...props} />,
-        ProfilePage: (props) => <ProfilePage {...props} />,
-    };
-
-    changePage = (page) => {
-        this.setState({currentPage: page});
-    };
-
-
     render() {
-        const { currentPage } = this.state;
         return (
             <>
-                { currentPage === 'MapPage' || currentPage === 'ProfilePage'
-                    ?
-                    <Header changePage={(page) => this.changePage(page)} currentPage={currentPage} /> : ''
-                }
-                { this.PAGES[currentPage]({changePage: this.changePage}) }
+                <Route path="/map" component={Header} />
+                <Route path="/profile" component={Header} />
+
+                <Switch>
+                    <Route path="/login" component={LoginPage} exact />
+                    <Route path="/registration" component={RegisterPage} />
+                    <PrivateRoute path="/map" component={MapPage} />
+                    <PrivateRoute path="/profile" component={ProfilePage} />
+                    <Redirect to="/login" />
+                </Switch>
             </>
         );
     }
 }
 
-export default withAuth(App);
+export default connect(
+    (state) => ({isLoggedIn: state.auth.isLoggedIn})
+)(App);

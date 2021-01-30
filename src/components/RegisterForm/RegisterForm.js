@@ -1,17 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import PropTypes from "prop-types";
-
 
 class RegisterForm extends React.Component {
 
-    static propTypes = {
-        changePage: PropTypes.func.isRequired,
-    };
-
-    changePage = (page) => {
-        this.props.changePage(page);
+    changePage = (event) => {
+        event.preventDefault();
+        window.location.replace("/profile");
     };
 
     render() {
@@ -21,7 +16,7 @@ class RegisterForm extends React.Component {
                     <div className="formTitle" >
                         Регистрация
                     </div>
-                    <form className="form" noValidate onSubmit={ () => this.changePage('ProfilePage') } >
+                    <form className="form" noValidate onSubmit={ this.changePage } >
                         <TextField
                             variant="standard"
                             margin="normal"
@@ -59,7 +54,7 @@ class RegisterForm extends React.Component {
                             Зарегистрироваться
                         </button>
                         <div className="newAcc">
-                            Уже зарегестрированы? <a href="#" className="orangeBtn" onClick={ () => this.changePage('LoginPage') } >Войти</a>
+                            Уже зарегестрированы? <a href="/login" className="orangeBtn" >Войти</a>
                         </div>
                     </form>
                 </div>
