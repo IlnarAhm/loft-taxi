@@ -37,10 +37,6 @@ class App extends React.Component {
 
 export default connect(
     (state) => ({
-        isLoggedIn: state.auth.isLoggedIn,
-        cardNumber: state.profile.cardNumber,
-        expiryDate: state.profile.expiryDate,
-        cardName: state.profile.cardName,
-        cvc: state.profile.cvc
+        isLoggedIn: state.auth.isLoggedIn
     })
 )(withRouter(App));

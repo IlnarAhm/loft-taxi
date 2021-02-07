@@ -1,12 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
 class RegisterForm extends React.Component {
 
     changePage = (event) => {
         event.preventDefault();
-        window.location.replace("/profile");
     };
 
     render() {
@@ -54,7 +54,7 @@ class RegisterForm extends React.Component {
                             Зарегистрироваться
                         </button>
                         <div className="newAcc">
-                            Уже зарегестрированы? <a href="/login" className="orangeBtn" >Войти</a>
+                            Уже зарегестрированы? <Link to="/login" className="orangeBtn" >Войти</Link>
                         </div>
                     </form>
                 </div>

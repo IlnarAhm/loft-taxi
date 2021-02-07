@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { connect } from "react-redux";
 import { authenticate } from "../../store/actions";
+import { Link } from 'react-router-dom';
 
 
 class LoginForm extends React.Component {
@@ -46,7 +47,7 @@ class LoginForm extends React.Component {
                             Войти
                         </button>
                         <div className="newAcc">
-                            Новый пользователь? <a href="/registration" className="orangeBtn" >Регистрация</a>
+                            Новый пользователь? <Link to="/registration" className="orangeBtn" >Регистрация</Link>
                         </div>
                     </form>
                 </div>
@@ -56,6 +57,6 @@ class LoginForm extends React.Component {
 }
 
 export default connect(
-    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+    null,
     { authenticate }
 )(LoginForm);

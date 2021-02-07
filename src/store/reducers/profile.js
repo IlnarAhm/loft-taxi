@@ -4,18 +4,20 @@ const initialState = {
     cardNumber: '',
     expiryDate: '',
     cardName: '',
-    cvc: ''
+    cvc: '',
+    token: ''
 };
 
 export default function profile(state = initialState, action) {
     switch (action.type) {
         case SAVE_PROFILE: {
-            const { cardNumber, expiryDate, cardName, cvc } = action.payload;
+            const { cardNumber, expiryDate, cardName, cvc, token } = action.payload;
             return {
-                cardNumber: cardNumber,
-                expiryDate: expiryDate,
-                cardName: cardName,
-                cvc: cvc
+                cardNumber,
+                expiryDate,
+                cardName,
+                cvc,
+                token
             }
         }
         default: {

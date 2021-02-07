@@ -9,8 +9,8 @@ export const authenticate = (email, password) => ({
     type: AUTHENTICATE,
     payload: { email, password }
 });
-export const saveProfile = (cardNumber, expiryDate, cardName, cvc) => ({
+export const saveProfile = (cardNumber, expiryDate, cardName, cvc, token) => ({
     type: SAVE_PROFILE,
-    payload: { cardNumber, expiryDate, cardName, cvc }
+    payload: { cardNumber, expiryDate, cardName, cvc, token }
 });
 

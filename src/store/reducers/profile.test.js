@@ -1,8 +1,8 @@
 import reducer from "./profile";
 import { saveProfile } from "../actions";
 
-const randomAction = {
-    type: `RANDOM_ACTION_${parseInt(Math.random() * 1000, 10)}`
+const action = {
+    type: `ACTION`
 };
 
 describe("Profile reducer", () => {
@@ -13,7 +13,7 @@ describe("Profile reducer", () => {
         cvc: "123"
     };
 
-    const state0 = reducer(undefined, randomAction);
+    const state0 = reducer(undefined, action);
     const state1 = reducer(state0, saveProfile(profile.cardNumber, profile.expiryDate, profile.cardName, profile.cvc));
 
     it("saves profile info", () => {

@@ -59,6 +59,6 @@ class Header extends React.Component {
 }
 
 export default connect(
-    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+    null,
     { logOut }
 )(Header);

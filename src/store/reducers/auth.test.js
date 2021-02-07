@@ -1,25 +1,25 @@
 import reducer from "./auth";
 import { logIn, logOut } from "../actions";
 
-const randomAction = {
-    type: `RANDOM_ACTION_${parseInt(Math.random() * 1000, 10)}`
+const action = {
+    type: `ACTION`
 };
 
 describe("Auth reducer", () => {
-    const state0 = reducer(undefined, randomAction);
+    const state0 = reducer(undefined, action);
 
     describe("authenticate", () => {
         it("login", () => {
-            const state2 = reducer(state0, logIn());
+            const state1 = reducer(state0, logIn());
 
-            expect(state2).toEqual({
+            expect(state1).toEqual({
                 isLoggedIn: true
             });
         });
         it("Logout", () => {
-            const state4 = reducer(state0, logOut());
+            const state2 = reducer(state0, logOut());
 
-            expect(state4).toEqual({
+            expect(state2).toEqual({
                 isLoggedIn: false
             });
         });
