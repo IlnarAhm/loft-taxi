@@ -18,7 +18,6 @@ class Header extends React.Component {
     unAuthenticate = (event) => {
         event.preventDefault();
         this.props.logOut();
-        window.location.replace("/login");
     };
 
     render() {

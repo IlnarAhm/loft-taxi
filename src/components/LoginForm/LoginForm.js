@@ -10,10 +10,7 @@ class LoginForm extends React.Component {
     authenticate = (event) => {
         event.preventDefault();
         const { email, password } = event.target;
-
-        if (this.props.authenticate(email.value, password.value)) {
-            // window.location.replace("/map");
-        }
+        this.props.authenticate(email.value, password.value);
     };
 
     render() {
