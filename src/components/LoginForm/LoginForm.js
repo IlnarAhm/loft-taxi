@@ -1,27 +1,17 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import PropTypes from "prop-types";
-import {withAuth} from "../../context/AuthContext";
+import { connect } from "react-redux";
+import { authenticate } from "../../store/actions";
+import { Link } from 'react-router-dom';
 
 
 class LoginForm extends React.Component {
 
-    changePage = (page) => {
-        this.props.changePage(page);
-    };
-
-    static propTypes = {
-        changePage: PropTypes.func.isRequired,
-        login: PropTypes.func.isRequired
-    };
-
     authenticate = (event) => {
         event.preventDefault();
         const { email, password } = event.target;
-        if (this.props.login(email.value, password.value)) {
-            this.changePage('ProfilePage');
-        }
+        this.props.authenticate(email.value, password.value);
     };
 
     render() {
@@ -53,14 +43,11 @@ class LoginForm extends React.Component {
                             id="password"
                             autoComplete="current-password"
                         />
-                        {/*<a className="forgotLink" href="#">*/}
-                        {/*    Забыли пароль?*/}
-                        {/*</a>*/}
                         <button type="submit" className="submit">
                             Войти
                         </button>
                         <div className="newAcc">
-                            Новый пользователь? <a href="/#" className="orangeBtn" onClick={ () => this.changePage('RegisterPage') } >Регистрация</a>
+                            Новый пользователь? <Link to="/registration" className="orangeBtn" >Регистрация</Link>
                         </div>
                     </form>
                 </div>
@@ -69,4 +56,7 @@ class LoginForm extends React.Component {
     }
 }
 
-export default withAuth(LoginForm);
+export default connect(
+    null,
+    { authenticate }
+)(LoginForm);

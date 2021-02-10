@@ -1,17 +1,8 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-
+import { Link } from 'react-router-dom';
 
 class ProfileFormComplete extends React.Component {
-
-    static propTypes = {
-        changePage: PropTypes.func.isRequired,
-    };
-
-    changePage = (page) => {
-        this.props.changePage(page)
-    };
 
     render() {
         return (
@@ -24,13 +15,9 @@ class ProfileFormComplete extends React.Component {
                         <div className="formSubTitle">
                             Платёжные данные обновлены. Теперь вы можете заказывать такси.
                         </div>
-                        <button
-                            type="submit"
-                            className="submit"
-                            onClick={ () => this.changePage('MapPage') }
-                        >
-                            Перейти на карту
-                        </button>
+                        <Link to="/map" >
+                            <button className="submit">Перейти на карту</button>
+                        </Link>
                     </div>
                 </div>
             </Grid>

@@ -4,25 +4,20 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import headerLogo from "../../assets/images/headerlogo.svg";
 import PropTypes from 'prop-types';
-import {withAuth} from "../../context/AuthContext";
+import { NavLink } from 'react-router-dom';
+import {connect} from "react-redux";
+import { logOut } from "../../store/actions";
 
 
 class Header extends React.Component {
 
     static propTypes = {
-        currentPage: PropTypes.string.isRequired,
-        changePage: PropTypes.func.isRequired,
-        logout: PropTypes.func.isRequired
-    };
-
-    changePage = (page) => {
-        this.props.changePage(page);
+        logOut: PropTypes.func.isRequired
     };
 
     unAuthenticate = (event) => {
         event.preventDefault();
-        this.props.logout();
-        this.changePage('LoginPage');
+        this.props.logOut();
     };
 
     render() {
@@ -33,27 +28,29 @@ class Header extends React.Component {
                         <img src={headerLogo} alt="" className="toolbarTitleLogo"/>
                     </Typography>
                     <nav>
-                        <a
-                            href="#"
-                            onClick={ () => this.changePage('MapPage') }
-                            className={ this.props.currentPage === 'MapPage' ? "headerLink activePage" : "headerLink" }
+                        <NavLink
+                            to="/map"
+                            exact
+                            activeClassName="activePage"
+                            className="headerLink"
                         >
                             Карта
-                        </a>
-                        <a
-                            href="#"
-                            onClick={ () => this.changePage('ProfilePage') }
-                            className={ this.props.currentPage === 'ProfilePage' ? "headerLink activePage" : "headerLink" }
+                        </NavLink>
+                        <NavLink
+                            to="/profile"
+                            exact
+                            activeClassName="activePage"
+                            className="headerLink"
                         >
                             Профиль
-                        </a>
-                        <a
-                            href="#"
+                        </NavLink>
+                        <NavLink
+                            to="/login"
                             onClick={ this.unAuthenticate }
                             className="headerLink"
                         >
                             Выйти
-                        </a>
+                        </NavLink>
                     </nav>
                 </Toolbar>
             </AppBar>
@@ -61,4 +58,7 @@ class Header extends React.Component {
     }
 }
 
-export default withAuth(Header);
+export default connect(
+    null,
+    { logOut }
+)(Header);

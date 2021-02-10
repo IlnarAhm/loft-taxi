@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import Grid from "@material-ui/core/Grid";
 import cardLogo from '../../assets/images/loft-card-logo.svg';
 import cardImg1 from '../../assets/images/loft-card-img1.svg';
 import cardImg2 from '../../assets/images/loft-card-img2.svg';
 import TextField from "@material-ui/core/TextField/TextField";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { saveProfile } from "../../store/actions";
 
-
-class ProfileForm extends React.Component {
+class ProfileForm extends PureComponent {
 
     state = {
-        cardNumber: '',
-        date: '',
+        cardNumber: this.props.profile.cardNumber,
+        date: this.props.profile.expiryDate,
+        cardName: this.props.profile.cardName,
+        cvc: this.props.profile.cvc,
+        token: this.props.auth.token
     };
+
+    static getDerivedStateFromProps(props, state) {
+        const { cardNumber, date, cardName, cvc, token } = state;
+
+        if (props.cardNumber !== cardNumber && props.date !== date && props.cardName !== cardName && props.cvc !== cvc && props.token !== token) {
+            return {
+                cardNumber,
+                date,
+                cardName,
+                cvc,
+                token
+            };
+        }
+        return null;
+    }
 
     static propTypes = {
         checkFormComplete: PropTypes.func.isRequired,
+        saveProfile: PropTypes.func.isRequired,
     };
 
     cardNumberChange = (event) => {
@@ -26,15 +46,20 @@ class ProfileForm extends React.Component {
         this.setState({ date: event.target.value });
     };
 
-    checkFormComplete = (bool) => {
-        this.props.checkFormComplete(bool)
+    saveProfile = (event) => {
+        event.preventDefault();
+
+        const { cardNumber, expiryDate, cardName, cvc } = event.target;
+
+        this.props.checkFormComplete(true);
+        this.props.saveProfile(cardNumber.value, expiryDate.value, cardName.value, cvc.value, this.state.token);
     };
 
     render() {
         return (
             <Grid item xs={12} className="profileForm" data-testid="ProfileForm">
                 <div className="paper profilePaper">
-                    <form className="mapInput" onSubmit={ () => this.checkFormComplete(true) } noValidate autoComplete="off">
+                    <form className="mapInput" onSubmit={ this.saveProfile } >
                         <div className="formTitle" >
                             Профиль
                         </div>
@@ -51,7 +76,8 @@ class ProfileForm extends React.Component {
                                             fullWidth
                                             id="name"
                                             label="Имя владельца"
-                                            name="name"
+                                            name="cardName"
+                                            defaultValue={ this.state.cardName }
                                         />
                                         <TextField
                                             variant="standard"
@@ -60,7 +86,7 @@ class ProfileForm extends React.Component {
                                             label="Номер карты"
                                             type="text"
                                             id="cardNumber"
-                                            value={this.state.cardNumberChange}
+                                            defaultValue={ this.state.cardNumber }
                                             onChange={this.cardNumberChange}
                                         />
                                         <Grid container spacing={3}>
@@ -69,11 +95,11 @@ class ProfileForm extends React.Component {
                                                     variant="standard"
                                                     margin="normal"
                                                     fullWidth
-                                                    name="date"
+                                                    name="expiryDate"
                                                     label="MM/YY"
                                                     type="text"
                                                     id="date"
-                                                    value={this.state.date}
+                                                    defaultValue={ this.state.date }
                                                     onChange={this.dateChange}
                                                 />
                                             </Grid>
@@ -86,6 +112,7 @@ class ProfileForm extends React.Component {
                                                     label="CVC"
                                                     type="number"
                                                     id="cvc"
+                                                    defaultValue={ this.state.cvc }
                                                 />
                                             </Grid>
                                         </Grid>
@@ -95,7 +122,7 @@ class ProfileForm extends React.Component {
                                     <div className="profileCard">
                                         <div className="profileCard_head">
                                             <img src={cardLogo} alt=""/>
-                                            <div className="mmyy">{ this.state.date}</div>
+                                            <div className="mmyy">{ this.state.date }</div>
                                         </div>
                                         <div className="profileCard_number">
                                             <div className="cardNumber">{ this.state.cardNumber }</div>
@@ -118,4 +145,13 @@ class ProfileForm extends React.Component {
     }
 }
 
-export default ProfileForm;
+const mapStateToProps = (state) => ({
+    profile: state.profile,
+    auth: state.auth
+});
+const mapDispatchToProps = { saveProfile };
+
+export default connect (
+    mapStateToProps,
+    mapDispatchToProps
+)(ProfileForm);
