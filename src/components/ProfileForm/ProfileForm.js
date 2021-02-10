@@ -8,26 +8,26 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { saveProfile } from "../../store/actions";
 
-const AUTH_TOKEN = 'TEST_TOKEN';
-
 class ProfileForm extends PureComponent {
 
     state = {
-        cardNumber: this.props.cardNumber,
-        date: this.props.expiryDate,
-        cardName: this.props.cardName,
-        cvc: this.props.cvc,
+        cardNumber: this.props.profile.cardNumber,
+        date: this.props.profile.expiryDate,
+        cardName: this.props.profile.cardName,
+        cvc: this.props.profile.cvc,
+        token: this.props.auth.token
     };
 
     static getDerivedStateFromProps(props, state) {
-        const { cardNumber, date, cardName, cvc } = state;
+        const { cardNumber, date, cardName, cvc, token } = state;
 
-        if (props.cardNumber !== cardNumber && props.date !== date && props.cardName !== cardName && props.cvc !== cvc) {
+        if (props.cardNumber !== cardNumber && props.date !== date && props.cardName !== cardName && props.cvc !== cvc && props.token !== token) {
             return {
                 cardNumber,
                 date,
                 cardName,
                 cvc,
+                token
             };
         }
         return null;
@@ -52,7 +52,7 @@ class ProfileForm extends PureComponent {
         const { cardNumber, expiryDate, cardName, cvc } = event.target;
 
         this.props.checkFormComplete(true);
-        this.props.saveProfile(cardNumber.value, expiryDate.value, cardName.value, cvc.value, AUTH_TOKEN);
+        this.props.saveProfile(cardNumber.value, expiryDate.value, cardName.value, cvc.value, this.state.token);
     };
 
     render() {
@@ -145,7 +145,13 @@ class ProfileForm extends PureComponent {
     }
 }
 
+const mapStateToProps = (state) => ({
+    profile: state.profile,
+    auth: state.auth
+});
+const mapDispatchToProps = { saveProfile };
+
 export default connect (
-    (state) => state.profile,
-    { saveProfile }
+    mapStateToProps,
+    mapDispatchToProps
 )(ProfileForm);

@@ -1,4 +1,4 @@
-import { SAVE_PROFILE } from '../actions';
+import { SAVE_PROFILE, SAVE_PROFILE_SUCCESS } from '../actions';
 
 const initialState = {
     cardNumber: '',
@@ -11,6 +11,16 @@ const initialState = {
 export default function profile(state = initialState, action) {
     switch (action.type) {
         case SAVE_PROFILE: {
+            const { cardNumber, expiryDate, cardName, cvc, token } = action.payload;
+            return {
+                cardNumber,
+                expiryDate,
+                cardName,
+                cvc,
+                token
+            }
+        }
+        case SAVE_PROFILE_SUCCESS: {
             const { cardNumber, expiryDate, cardName, cvc, token } = action.payload;
             return {
                 cardNumber,

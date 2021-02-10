@@ -6,9 +6,12 @@ export const authMiddleware = (store) => (next) => async (action) => {
     if (action.type === AUTHENTICATE) {
         const { email, password } = action.payload;
         try {
-            const success = await serverLogin(email, password);
+            const { error, success, token } = await serverLogin(email, password);
+
             if (success) {
-                store.dispatch(logIn());
+                store.dispatch(logIn(token));
+            } else {
+                console.log(error);
             }
         } catch(err) {
             console.log(err)
